@@ -133,9 +133,11 @@ export default class MainScene extends Phaser.Scene {
       // means we do not scale
       // and set the overflow-y to auto
       if (this.game.device.input.touch && document.activeElement && document.activeElement.tagName !== 'BODY') {
-        if (body.style.overflowX !== 'auto') body.style.overflowY = 'auto'
+        body.style.overflowY = 'auto'
+        body.style.height = `${this.game.scale.displaySize.height * 2}px`
       } else {
-        if (body.style.overflowX !== 'hidden') body.style.overflowY = 'hidden'
+        body.style.overflowY = 'hidden'
+        body.style.height = ''
         scalePhaser()
         scaleReact()
       }
