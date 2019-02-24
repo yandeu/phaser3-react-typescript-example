@@ -2,8 +2,12 @@ import 'phaser'
 import MainScene from './scenes/mainScene'
 import PreloadScene from './scenes/preloadScene'
 
-const DEFAULT_WIDTH = 1280
+// fix the width and height based on the height
+const w = window.innerWidth
+const h = window.innerHeight
+const ratio = Math.max(w / h, h / w)
 const DEFAULT_HEIGHT = 720
+const DEFAULT_WIDTH = ratio * DEFAULT_HEIGHT
 
 const config: GameConfig = {
   parent: 'phaser',
@@ -12,7 +16,7 @@ const config: GameConfig = {
   width: DEFAULT_WIDTH,
   height: DEFAULT_HEIGHT,
 
-  // The game will be scaled manually
+  // this game will be scaled manually in mainScene.tsx
   scale: {
     //mode: Phaser.Scale.FIT,
     //autoCenter: Phaser.Scale.CENTER_BOTH
