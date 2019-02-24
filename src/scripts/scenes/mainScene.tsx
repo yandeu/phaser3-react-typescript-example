@@ -132,10 +132,10 @@ export default class MainScene extends Phaser.Scene {
       // the keyboard is probably open
       // means we do not scale
       // and set the overflow-y to auto
-      if (document.activeElement && document.activeElement.tagName !== 'BODY') {
-        body.style.overflowY = 'auto'
+      if (this.game.device.input.touch && document.activeElement && document.activeElement.tagName !== 'BODY') {
+        if (body.style.overflowX !== 'auto') body.style.overflowY = 'auto'
       } else {
-        if (body) body.style.overflowY = 'hidden'
+        if (body.style.overflowX !== 'hidden') body.style.overflowY = 'hidden'
         scalePhaser()
         scaleReact()
       }
