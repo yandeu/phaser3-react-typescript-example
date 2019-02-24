@@ -8,11 +8,14 @@ const DEFAULT_HEIGHT = 720
 const config: GameConfig = {
   parent: 'phaser',
   backgroundColor: '#ffffff',
+
+  width: DEFAULT_WIDTH,
+  height: DEFAULT_HEIGHT,
+
+  // The game will be scaled manually
   scale: {
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: DEFAULT_WIDTH,
-    height: DEFAULT_HEIGHT
+    //mode: Phaser.Scale.FIT,
+    //autoCenter: Phaser.Scale.CENTER_BOTH
   },
   scene: [PreloadScene, MainScene],
   physics: {

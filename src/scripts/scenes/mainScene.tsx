@@ -76,6 +76,29 @@ export default class MainScene extends Phaser.Scene {
       </div>
     )
 
+    // scale phaser
+    const scalePhaser = () => {
+      const w = window.innerWidth
+      const h = window.innerHeight
+
+      const defaultWidth = +this.sys.game.config.width
+      const defaultHeight = +this.sys.game.config.height
+
+      const scale = Math.min(w / defaultWidth, h / defaultHeight)
+
+      const width = defaultWidth * scale
+      const height = defaultHeight * scale
+
+      this.game.canvas.style.width = width + 'px'
+      this.game.canvas.style.height = height + 'px'
+
+      this.game.canvas.style.marginTop = `${(h - height) / 2}px`
+      this.game.canvas.style.marginLeft = `${(w - width) / 2}px`
+
+      this.game.scale.displaySize.setWidth(width)
+      this.game.scale.displaySize.setHeight(height)
+    }
+
     // scale react
     const scaleReact = () => {
       let scale = this.game.scale.displaySize.width / this.game.scale.gameSize.width
@@ -89,15 +112,33 @@ export default class MainScene extends Phaser.Scene {
       }
     }
 
+    // initial phaser scale
+    scalePhaser()
+
     // initialize react
     let react = document.getElementById('react')
     if (react) {
-      scaleReact()
       react.style.position = 'absolute'
       react.style.userSelect = 'none'
       render(<App />, react)
+      scaleReact()
     }
 
-    this.scale.on('resize', () => scaleReact())
+    this.scale.on('resize', () => {
+      let body = document.getElementById('body')
+      if (!body) return
+
+      // if the activeElement is not the body
+      // the keyboard is probably open
+      // means we do not scale
+      // and set the overflow-y to auto
+      if (document.activeElement && document.activeElement.tagName !== 'BODY') {
+        body.style.overflowY = 'auto'
+      } else {
+        if (body) body.style.overflowY = 'hidden'
+        scalePhaser()
+        scaleReact()
+      }
+    })
   }
 }
