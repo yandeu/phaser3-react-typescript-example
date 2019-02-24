@@ -6,8 +6,10 @@ import PreloadScene from './scenes/preloadScene'
 const w = window.innerWidth
 const h = window.innerHeight
 const ratio = Math.max(w / h, h / w)
+
+const MIN_RATIO = 1.55
 const DEFAULT_HEIGHT = 720
-const DEFAULT_WIDTH = ratio * DEFAULT_HEIGHT
+const DEFAULT_WIDTH = Math.max(MIN_RATIO, ratio) * DEFAULT_HEIGHT
 
 const config: GameConfig = {
   parent: 'phaser',
