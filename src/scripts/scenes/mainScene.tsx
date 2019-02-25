@@ -119,8 +119,6 @@ export default class MainScene extends Phaser.Scene {
     // initialize react
     let react = document.getElementById('react')
     if (react) {
-      react.style.position = 'absolute'
-      react.style.userSelect = 'none'
       render(<App />, react)
       scaleReact()
     }
