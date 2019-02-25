@@ -104,9 +104,10 @@ export default class MainScene extends Phaser.Scene {
       let scale = this.game.scale.displaySize.width / this.game.scale.gameSize.width
       let react = document.getElementById('react')
       if (react) {
-        react.style.zoom = `${scale}`
-        react.style.top = this.game.canvas.offsetTop / scale + 'px'
-        react.style.left = this.game.canvas.offsetLeft / scale + 'px'
+        react.style.transform = `scale(${scale})`
+        react.style.transformOrigin = 'top left'
+        react.style.top = this.game.canvas.offsetTop + 'px'
+        react.style.left = this.game.canvas.offsetLeft /* / scale*/ + 'px'
         react.style.height = this.cameras.main.displayHeight + 'px'
         react.style.width = this.cameras.main.displayWidth + 'px'
       }
