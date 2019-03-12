@@ -2,26 +2,17 @@ import 'phaser'
 import MainScene from './scenes/mainScene'
 import PreloadScene from './scenes/preloadScene'
 
-// fix the width and height based on the height
-const w = window.innerWidth
-const h = window.innerHeight
-const ratio = Math.max(w / h, h / w)
-
-const MIN_RATIO = 1.55
-const DEFAULT_HEIGHT = 720
-const DEFAULT_WIDTH = Math.max(MIN_RATIO, ratio) * DEFAULT_HEIGHT
-
 const config: GameConfig = {
-  parent: 'phaser',
+  parent: 'phaser', // this has to match the div id in index.html
   backgroundColor: '#ffffff',
-
-  width: DEFAULT_WIDTH,
-  height: DEFAULT_HEIGHT,
-
-  // this game will be scaled manually in mainScene.tsx
   scale: {
-    //mode: Phaser.Scale.FIT,
-    //autoCenter: Phaser.Scale.CENTER_BOTH
+    width: 1280,
+    height: 720,
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH
+  },
+  dom: {
+    createContainer: false
   },
   scene: [PreloadScene, MainScene],
   physics: {

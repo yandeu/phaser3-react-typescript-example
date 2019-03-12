@@ -76,62 +76,32 @@ export default class MainScene extends Phaser.Scene {
       </div>
     )
 
-    // scale phaser
-    const scalePhaser = () => {
-      const w = window.innerWidth
-      const h = window.innerHeight
+    // creating the react dom element
+    let reactDiv = document.getElementById('react')
+    // @ts-ignore
+    let react = this.add.dom(0, 0, reactDiv)
 
-      const defaultWidth = +this.sys.game.config.width
-      const defaultHeight = +this.sys.game.config.height
-
-      const scale = Math.min(w / defaultWidth, h / defaultHeight)
-
-      const width = defaultWidth * scale
-      const height = defaultHeight * scale
-
-      this.game.canvas.style.width = width + 'px'
-      this.game.canvas.style.height = height + 'px'
-
-      this.game.canvas.style.marginTop = `${(h - height) / 2}px`
-      this.game.canvas.style.marginLeft = `${(w - width) / 2}px`
-
-      this.game.scale.displaySize.setWidth(width)
-      this.game.scale.displaySize.setHeight(height)
-    }
+    // seems not to work on the dom elements :/
+    this.input.setTopOnly(true)
 
     // scale react
     const scaleReact = () => {
       let scale = this.game.scale.displaySize.width / this.game.scale.gameSize.width
-      let react = document.getElementById('react')
-      if (react) {
-        react.style.transform = `scale(${scale})`
-        react.style.transformOrigin = 'top left'
-        react.style.top = this.game.canvas.offsetTop + 'px'
-        react.style.left = this.game.canvas.offsetLeft + 'px'
-        react.style.height = this.cameras.main.displayHeight + 'px'
-        react.style.width = this.cameras.main.displayWidth + 'px'
-      }
+
+      react.setScale(scale).setOrigin(0)
+      react.node.style.top = this.game.canvas.offsetTop + 'px'
+      react.node.style.left = this.game.canvas.offsetLeft + 'px'
+      react.node.style.height = this.cameras.main.displayHeight + 'px'
+      react.node.style.width = this.cameras.main.displayWidth + 'px'
     }
 
-    // initial phaser scale
-    scalePhaser()
+    // initialize react and scale
+    render(<App />, react.node)
+    scaleReact()
 
-    // initialize react
-    let react = document.getElementById('react')
-    if (react) {
-      /**
-       * This is a temporary fix.
-       */
-      react.addEventListener('click', (e: MouseEvent) => {
-        let element: HTMLElement = e.composedPath()[0] as HTMLElement
-        this.input.enabled = element.id === 'react'
-      })
+    this.scale.on('resize', gameSize => {
+      this.cameras.resize(gameSize.width, gameSize.height)
 
-      render(<App />, react)
-      scaleReact()
-    }
-
-    this.scale.on('resize', () => {
       let body = document.getElementById('body')
       if (!body) return
 
@@ -145,7 +115,6 @@ export default class MainScene extends Phaser.Scene {
       } else {
         body.style.overflowY = 'hidden'
         body.style.height = ''
-        scalePhaser()
         scaleReact()
       }
     })
