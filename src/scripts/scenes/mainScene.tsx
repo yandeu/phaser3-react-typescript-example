@@ -107,7 +107,7 @@ export default class MainScene extends Phaser.Scene {
         react.style.transform = `scale(${scale})`
         react.style.transformOrigin = 'top left'
         react.style.top = this.game.canvas.offsetTop + 'px'
-        react.style.left = this.game.canvas.offsetLeft /* / scale*/ + 'px'
+        react.style.left = this.game.canvas.offsetLeft + 'px'
         react.style.height = this.cameras.main.displayHeight + 'px'
         react.style.width = this.cameras.main.displayWidth + 'px'
       }
@@ -119,6 +119,14 @@ export default class MainScene extends Phaser.Scene {
     // initialize react
     let react = document.getElementById('react')
     if (react) {
+      /**
+       * This is a temporary fix.
+       */
+      react.addEventListener('click', (e: MouseEvent) => {
+        let element: HTMLElement = e.composedPath()[0] as HTMLElement
+        this.input.enabled = element.id === 'react'
+      })
+
       render(<App />, react)
       scaleReact()
     }
