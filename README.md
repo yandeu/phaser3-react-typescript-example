@@ -12,7 +12,7 @@ This example is based on the [Phaser 3 TypeScript Template](https://github.com/y
 
 Bugs:
 
-- When the Keyboard in open on a mobile phone, the Game resizes
+- [[SOVLED in #1361](https://phaser.discourse.group/t/scalemanager-ignore-virtual-keyboard/1361)] When the Keyboard in open on a mobile phone, the Game resizes
 - Don't know how to make something similar to this (`this.input.setTopOnly(true)`) work
 
 The MIT License (MIT) 2019 - [Yannick Deubel](https://github.com/yandeu). Please have a look at the [LICENSE](LICENSE) for more details.
