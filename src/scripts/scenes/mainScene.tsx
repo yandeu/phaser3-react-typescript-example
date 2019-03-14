@@ -99,6 +99,8 @@ export default class MainScene extends Phaser.Scene {
     render(<App />, react.node)
     scaleReact()
 
+    let displayHeight = this.game.scale.displaySize.height
+
     this.scale.on('resize', gameSize => {
       this.cameras.resize(gameSize.width, gameSize.height)
 
@@ -107,14 +109,15 @@ export default class MainScene extends Phaser.Scene {
 
       // if the activeElement is not the body
       // the keyboard is probably open
-      // means we do not scale
-      // and set the overflow-y to auto
+      // means we do not scale (fixe the height)
+      // and set the overflow-y to scroll
       if (this.game.device.input.touch && document.activeElement && document.activeElement.tagName !== 'BODY') {
-        body.style.overflowY = 'auto'
-        body.style.height = `${this.game.scale.displaySize.height * 2}px`
+        body.style.overflowY = 'scroll'
+        body.style.height = `${displayHeight}px`
       } else {
         body.style.overflowY = 'hidden'
         body.style.height = ''
+        displayHeight = this.game.scale.displaySize.height
         scaleReact()
       }
     })
