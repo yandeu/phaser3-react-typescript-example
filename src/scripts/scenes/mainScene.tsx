@@ -121,5 +121,21 @@ export default class MainScene extends Phaser.Scene {
         scaleReact()
       }
     })
+
+    // toggle fullscreen
+    let button = this.add
+      .image(this.cameras.main.width - 24, 24, 'fullscreen', 0)
+      .setOrigin(1, 0)
+      .setInteractive()
+
+    button.on('pointerup', () => {
+      if (this.scale.isFullscreen) {
+        button.setFrame(0)
+        this.scale.stopFullscreen()
+      } else {
+        button.setFrame(1)
+        this.scale.startFullscreen()
+      }
+    })
   }
 }

@@ -3,9 +3,10 @@ import MainScene from './scenes/mainScene'
 import PreloadScene from './scenes/preloadScene'
 
 const config: GameConfig = {
-  parent: 'phaser', // this has to match the div id in index.html
   backgroundColor: '#ffffff',
   scale: {
+    parent: 'phaser', // this has to match the div id in index.html
+    fullscreenTarget: 'body', // this has to be the wrapping element
     width: 1280,
     height: 720,
     mode: Phaser.Scale.FIT,
