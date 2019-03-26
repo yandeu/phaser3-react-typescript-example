@@ -86,7 +86,7 @@ export default class MainScene extends Phaser.Scene {
 
     // scale react
     const scaleReact = () => {
-      let scale = this.game.scale.displaySize.width / this.game.scale.gameSize.width
+      let scale = this.game.scale.canvasBounds.width / this.game.scale.gameSize.width
 
       react.setScale(scale).setOrigin(0)
       react.node.style.top = this.game.canvas.offsetTop + 'px'
