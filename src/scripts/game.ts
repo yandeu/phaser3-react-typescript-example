@@ -1,6 +1,7 @@
 import 'phaser'
 import MainScene from './scenes/mainScene'
 import PreloadScene from './scenes/preloadScene'
+import FullScreenEvent from './scenes/fullscreenEvent'
 
 const DEFAULT_WIDTH = 1280
 const DEFAULT_HEIGHT = 720
@@ -54,6 +55,9 @@ const resize = (game: Phaser.Game) => {
 
 window.addEventListener('load', () => {
   let game = new Phaser.Game(config)
+
+  // added this because it did not always automatically work in Phaser 3.16.2
+  FullScreenEvent(() => resize(game))
 
   window.addEventListener('resize', () => {
     resize(game)
