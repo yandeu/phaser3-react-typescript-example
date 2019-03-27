@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html id="html" lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -34,6 +34,7 @@
         margin: 0;
         background-color: #000000;
         overscroll-behavior: none; /* disable PULL-TO-REFRESH on chrome for android */
+        overflow: hidden;
       }
       #react {
         -webkit-user-select: none; /* Chrome all / Safari all */
@@ -52,7 +53,7 @@
       }
     </script> -->
   </head>
-  <body id="body" style="overflow-x:hidden;overflow-y: hidden;">
+  <body id="body">
     <div id="react"></div>
     <div id="phaser"></div>
     <noscript>Please enable javascript to continue using this application.</noscript>

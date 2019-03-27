@@ -84,6 +84,27 @@ export default class MainScene extends Phaser.Scene {
     // seems not to work on the dom elements :/
     this.input.setTopOnly(true)
 
+    // scale phaser
+    const scalePhaser = () => {
+      const w = window.innerWidth
+      const h = window.innerHeight
+
+      const width = this.scale.gameSize.width
+      const height = this.scale.gameSize.height
+
+      const scale = Math.min(w / width, h / height)
+
+      const newWidth = width * scale
+      const newHeight = height * scale
+      // scale the width and height of the css
+      this.game.canvas.style.width = newWidth + 'px'
+      this.game.canvas.style.height = newHeight + 'px'
+
+      // center the game with css margin
+      this.game.canvas.style.marginTop = `${(h - newHeight) / 2}px`
+      this.game.canvas.style.marginLeft = `${(w - newWidth) / 2}px`
+    }
+
     // scale react
     const scaleReact = () => {
       let scale = this.game.scale.canvasBounds.width / this.game.scale.gameSize.width
@@ -98,14 +119,14 @@ export default class MainScene extends Phaser.Scene {
     // initialize react and scale
     render(<App />, react.node)
     scaleReact()
-
-    let displayHeight = this.game.scale.displaySize.height
+    scalePhaser()
 
     this.scale.on('resize', gameSize => {
       this.cameras.resize(gameSize.width, gameSize.height)
 
       let body = document.getElementById('body')
-      if (!body) return
+      let html = document.getElementById('html')
+      if (!body || !html) return
 
       // if the activeElement is not the body
       // the keyboard is probably open
@@ -113,11 +134,15 @@ export default class MainScene extends Phaser.Scene {
       // and set the overflow-y to scroll
       if (this.game.device.input.touch && document.activeElement && document.activeElement.tagName !== 'BODY') {
         body.style.overflowY = 'scroll'
-        body.style.height = `${displayHeight}px`
+        body.style.height = `100%`
+        html.style.overflowY = 'scroll'
+        html.style.height = `100%`
       } else {
         body.style.overflowY = 'hidden'
         body.style.height = ''
-        displayHeight = this.game.scale.displaySize.height
+        html.style.overflowY = 'hidden'
+        html.style.height = ''
+        scalePhaser()
         scaleReact()
       }
     })
