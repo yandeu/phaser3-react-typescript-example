@@ -77,7 +77,9 @@ export default class MainScene extends Phaser.Scene {
     )
 
     // creating the react dom element
-    let reactDiv = document.getElementById('react')
+    let reactDiv = document.createElement('div')
+    reactDiv.id = 'react'
+
     // @ts-ignore
     let react = this.add.dom(0, 0, reactDiv)
 
