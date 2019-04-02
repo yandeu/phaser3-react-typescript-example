@@ -82,7 +82,7 @@ export default class MainScene extends Phaser.Scene {
     if (!reactDiv) throw new Error('#react not found')
     reactDiv.addEventListener('mousedown', (event: Event) => {
       // if the click is not on the root react div, we call stopPropagation()
-      let target = event.target as HTMLTextAreaElement
+      let target = event.target as HTMLElement
       if (target.id !== 'react') event.stopPropagation()
     })
 
