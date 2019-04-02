@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
+import { resize as Resize } from '../resize'
 
 import Box from '../components/box'
 import Header from '../components/header'
@@ -128,6 +129,22 @@ export default class MainScene extends Phaser.Scene {
     scaleReact()
     scalePhaser()
 
+    // toggle fullscreen
+    let button = this.add
+      .image(this.cameras.main.width - 24, 24, 'fullscreen', 0)
+      .setOrigin(1, 0)
+      .setInteractive()
+
+    button.on('pointerup', () => {
+      if (this.scale.isFullscreen) {
+        button.setFrame(0)
+        this.scale.stopFullscreen()
+      } else {
+        button.setFrame(1)
+        this.scale.startFullscreen()
+      }
+    })
+
     this.scale.on('resize', gameSize => {
       this.cameras.resize(gameSize.width, gameSize.height)
 
@@ -153,21 +170,6 @@ export default class MainScene extends Phaser.Scene {
         scaleReact()
       }
     })
-
-    // toggle fullscreen
-    let button = this.add
-      .image(this.cameras.main.width - 24, 24, 'fullscreen', 0)
-      .setOrigin(1, 0)
-      .setInteractive()
-
-    button.on('pointerup', () => {
-      if (this.scale.isFullscreen) {
-        button.setFrame(0)
-        this.scale.stopFullscreen()
-      } else {
-        button.setFrame(1)
-        this.scale.startFullscreen()
-      }
-    })
+    Resize(this.game)
   }
 }
