@@ -15,7 +15,7 @@ export const config: GameConfig = {
     // autoCenter: Phaser.Scale.CENTER_BOTH
   },
   dom: {
-    createContainer: true
+    createContainer: false
   },
   scene: [PreloadScene, MainScene],
   physics: {

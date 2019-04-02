@@ -78,8 +78,8 @@ export default class MainScene extends Phaser.Scene {
     )
 
     // creating the react dom element
-    let reactDiv = document.createElement('div')
-    reactDiv.id = 'react'
+    let reactDiv = document.getElementById('react')
+    if (!reactDiv) throw new Error('#react not found')
     reactDiv.addEventListener('mousedown', (event: Event) => {
       // if the click is not on the root react div, we call stopPropagation()
       let target = event.target as HTMLTextAreaElement
@@ -105,29 +105,29 @@ export default class MainScene extends Phaser.Scene {
       const newWidth = width * scale
       const newHeight = height * scale
       // scale the width and height of the css
-      this.game.canvas.style.width = newWidth + 'px'
-      this.game.canvas.style.height = newHeight + 'px'
+      this.scale.canvas.style.width = newWidth + 'px'
+      this.scale.canvas.style.height = newHeight + 'px'
 
       // center the game with css margin
-      this.game.canvas.style.marginTop = `${(h - newHeight) / 2}px`
-      this.game.canvas.style.marginLeft = `${(w - newWidth) / 2}px`
+      this.scale.canvas.style.marginTop = `${(h - newHeight) / 2}px`
+      this.scale.canvas.style.marginLeft = `${(w - newWidth) / 2}px`
     }
 
     // scale react
     const scaleReact = () => {
-      let scale = this.game.scale.canvasBounds.width / this.game.scale.gameSize.width
+      let scale = 1 / this.scale.displayScale.x
 
       react.setScale(scale).setOrigin(0)
-      react.node.style.top = this.game.canvas.offsetTop + 'px'
-      react.node.style.left = this.game.canvas.offsetLeft + 'px'
+      react.node.style.top = this.scale.canvas.offsetTop + 'px'
+      react.node.style.left = this.scale.canvas.offsetLeft + 'px'
       react.node.style.height = this.cameras.main.displayHeight + 'px'
       react.node.style.width = this.cameras.main.displayWidth + 'px'
     }
 
     // initialize react and scale
     render(<App />, react.node)
-    scaleReact()
     scalePhaser()
+    scaleReact()
 
     // toggle fullscreen
     let button = this.add
